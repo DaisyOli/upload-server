@@ -1,5 +1,7 @@
 import { env } from '@/env'
+import { getUploadsRoute } from '@/infra/http/routes/get-uploads'
 import { uploadImageRoute } from '@/infra/http/routes/upload-image'
+// Corrigido o caminho do import para evitar erro de módulo não encontrado
 import { transformSwaggerSchema } from '@/infra/http/routes/transform-swagger-schema'
 import { fastifyCors } from '@fastify/cors'
 import { fastifyMultipart } from '@fastify/multipart'
@@ -42,13 +44,15 @@ server.register(fastifySwagger, {
       version: '1.0.0',
     },
   },
-  transform: transformSwaggerSchema as any, // Corrige o erro de tipagem
+  transform: transformSwaggerSchema,
 })
+
 server.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
 
 server.register(uploadImageRoute)
+server.register(getUploadsRoute)
 
 server.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')

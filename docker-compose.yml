@@ -6,6 +6,6 @@ services:
     environment:
       - POSTGRESQL_USER=docker
       - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DB=upload
+      - POSTGRESQL_DB=upload_test
     volumes:
       - './docker:/docker-entrypoint-initdb.d'
